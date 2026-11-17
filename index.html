@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Twin Edge AI – Intelligent Decision Framework</title>
+  <meta name="description" content="A real-time Digital Twin Enabled Intelligent Decision Framework using Edge Artificial Intelligence for smart manufacturing and IoT systems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ──────────────── SIDEBAR NAV ──────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="url(#lg1)" stroke-width="2"/><path d="M12 20h16M20 12v16" stroke="url(#lg2)" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="20" r="4" fill="url(#lg1)"/><defs><linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#00d4ff"/><stop offset="1" stop-color="#7c3aed"/></linearGradient><linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#00d4ff"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs></svg>
+    </div>
+    <div>
+      <div class="logo-title">EdgeTwin AI</div>
+      <div class="logo-sub">v2.4.1 Live</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="#overview" class="nav-item active" onclick="setNav(this,'overview')">
+      <span class="nav-icon">⬡</span> Overview
+    </a>
+    <a href="#sensors" class="nav-item" onclick="setNav(this,'sensors')">
+      <span class="nav-icon">📡</span> Sensors
+    </a>
+    <a href="#edge-ai" class="nav-item" onclick="setNav(this,'edge-ai')">
+      <span class="nav-icon">🧠</span> Edge AI
+    </a>
+    <a href="#digital-twin" class="nav-item" onclick="setNav(this,'digital-twin')">
+      <span class="nav-icon">🔷</span> Digital Twin
+    </a>
+    <a href="#decisions" class="nav-item" onclick="setNav(this,'decisions')">
+      <span class="nav-icon">⚡</span> Decisions
+    </a>
+    <a href="#architecture" class="nav-item" onclick="setNav(this,'architecture')">
+      <span class="nav-icon">🗺</span> Architecture
+    </a>
+  </nav>
+
+  <div class="sidebar-status">
+    <div class="status-dot pulse-green"></div>
+    <span>System Operational</span>
+  </div>
+</aside>
+
+<!-- ──────────────── MAIN CONTENT ──────────────── -->
+<main class="main-content" id="main-content">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 class="page-title">Digital Twin — Intelligent Decision Framework</h1>
+      <span class="page-sub">Edge AI Enabled · Real-time Monitoring</span>
+    </div>
+    <div class="topbar-right">
+      <div class="time-display" id="time-display">--:--:--</div>
+      <button class="btn-primary" id="sim-btn" onclick="toggleSimulation()">⏸ Pause Simulation</button>
+    </div>
+  </header>
+
+  <!-- ═══════ SECTION: OVERVIEW ═══════ -->
+  <section id="overview" class="section active-section">
+
+    <!-- KPI CARDS -->
+    <div class="kpi-grid">
+      <div class="kpi-card" id="kpi-health">
+        <div class="kpi-icon" style="background:linear-gradient(135deg,#00d4ff22,#00d4ff44)">📊</div>
+        <div class="kpi-body">
+          <div class="kpi-label">System Health</div>
+          <div class="kpi-value" id="kv-health">97.3%</div>
+          <div class="kpi-trend up">↑ 1.2% vs yesterday</div>
+        </div>
+        <div class="kpi-sparkline" id="spark-health"></div>
+      </div>
+      <div class="kpi-card" id="kpi-latency">
+        <div class="kpi-icon" style="background:linear-gradient(135deg,#7c3aed22,#7c3aed44)">⚡</div>
+        <div class="kpi-body">
+          <div class="kpi-label">Edge Latency</div>
+          <div class="kpi-value" id="kv-latency">12 ms</div>
+          <div class="kpi-trend up">↓ 3ms improved</div>
+        </div>
+        <div class="kpi-sparkline" id="spark-latency"></div>
+      </div>
+      <div class="kpi-card" id="kpi-anomalies">
+        <div class="kpi-icon" style="background:linear-gradient(135deg,#f59e0b22,#f59e0b44)">🔍</div>
+        <div class="kpi-body">
+          <div class="kpi-label">Anomalies Detected</div>
+          <div class="kpi-value" id="kv-anomalies">3</div>
+          <div class="kpi-trend down">↑ 1 new alert</div>
+        </div>
+        <div class="kpi-sparkline" id="spark-anomaly"></div>
+      </div>
+      <div class="kpi-card" id="kpi-bandwidth">
+        <div class="kpi-icon" style="background:linear-gradient(135deg,#10b98122,#10b98144)">📶</div>
+        <div class="kpi-body">
+          <div class="kpi-label">Bandwidth Saved</div>
+          <div class="kpi-value" id="kv-bandwidth">78%</div>
+          <div class="kpi-trend up">Edge processing active</div>
+        </div>
+        <div class="kpi-sparkline" id="spark-bw"></div>
+      </div>
+    </div>
+
+    <!-- MAIN GRID: Chart + Live Feed -->
+    <div class="main-grid">
+      <!-- Real-time Sensor Chart -->
+      <div class="card chart-card">
+        <div class="card-header">
+          <span class="card-title">📈 Real-Time Sensor Data Stream</span>
+          <div class="legend">
+            <span class="dot" style="background:#00d4ff"></span>Temperature
+            <span class="dot" style="background:#7c3aed"></span>Vibration
+            <span class="dot" style="background:#10b981"></span>Pressure
+            <span class="dot" style="background:#f59e0b"></span>Humidity
+          </div>
+        </div>
+        <canvas id="sensorChart" height="220"></canvas>
+      </div>
+
+      <!-- Live Events Feed -->
+      <div class="card feed-card">
+        <div class="card-header">
+          <span class="card-title">⚡ Live Event Feed</span>
+          <span class="badge-live">LIVE</span>
+        </div>
+        <div class="feed-list" id="feed-list"></div>
+      </div>
+    </div>
+
+    <!-- MODULE STATUS ROW -->
+    <div class="module-row">
+      <div class="mod-card">
+        <div class="mod-icon">📡</div>
+        <div class="mod-label">Data Acquisition</div>
+        <div class="mod-status online">Online</div>
+        <div class="mod-bar"><div class="mod-fill" style="width:94%;background:#00d4ff"></div></div>
+        <div class="mod-val">94% throughput</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon">🔀</div>
+        <div class="mod-label">Edge Ingestion</div>
+        <div class="mod-status online">Online</div>
+        <div class="mod-bar"><div class="mod-fill" style="width:88%;background:#7c3aed"></div></div>
+        <div class="mod-val">88% processed</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon">🧠</div>
+        <div class="mod-label">Edge AI Model</div>
+        <div class="mod-status online">Active</div>
+        <div class="mod-bar"><div class="mod-fill" style="width:99%;background:#10b981"></div></div>
+        <div class="mod-val">99.1% accuracy</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon">🔷</div>
+        <div class="mod-label">Digital Twin</div>
+        <div class="mod-status online">Synced</div>
+        <div class="mod-bar"><div class="mod-fill" style="width:100%;background:#00d4ff"></div></div>
+        <div class="mod-val">100% in sync</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon">⚡</div>
+        <div class="mod-label">Decision Engine</div>
+        <div class="mod-status online">Running</div>
+        <div class="mod-bar"><div class="mod-fill" style="width:76%;background:#f59e0b"></div></div>
+        <div class="mod-val">76 decisions/min</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon">☁</div>
+        <div class="mod-label">Cloud Module</div>
+        <div class="mod-status online">Connected</div>
+        <div class="mod-bar"><div class="mod-fill" style="width:62%;background:#ec4899"></div></div>
+        <div class="mod-val">62% cloud traffic</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ SECTION: SENSORS ═══════ -->
+  <section id="sensors" class="section">
+    <div class="section-header-row">
+      <h2 class="sec-title">📡 Sensor Monitoring — Physical Layer</h2>
+      <span class="sec-sub">4 active sensor clusters · MQTT Protocol</span>
+    </div>
+
+    <div class="sensor-grid">
+      <!-- Temperature -->
+      <div class="sensor-card" id="sens-temp">
+        <div class="sensor-top">
+          <div class="sensor-name">🌡 Temperature</div>
+          <div class="sensor-unit">°C</div>
+        </div>
+        <div class="gauge-wrap">
+          <canvas id="gauge-temp" width="180" height="110"></canvas>
+          <div class="gauge-val" id="gv-temp">72.4</div>
+        </div>
+        <div class="sensor-bars">
+          <div class="sbar-row"><span>Min</span><div class="sbar"><div class="sbar-fill" id="sb-temp-min" style="width:30%;background:#00d4ff"></div></div><span id="sv-temp-min">55</span></div>
+          <div class="sbar-row"><span>Max</span><div class="sbar"><div class="sbar-fill" id="sb-temp-max" style="width:80%;background:#f59e0b"></div></div><span id="sv-temp-max">87</span></div>
+        </div>
+        <div class="sensor-tag normal" id="tag-temp">NORMAL</div>
+      </div>
+
+      <!-- Vibration -->
+      <div class="sensor-card" id="sens-vib">
+        <div class="sensor-top">
+          <div class="sensor-name">〰 Vibration</div>
+          <div class="sensor-unit">mm/s</div>
+        </div>
+        <div class="gauge-wrap">
+          <canvas id="gauge-vib" width="180" height="110"></canvas>
+          <div class="gauge-val" id="gv-vib">3.2</div>
+        </div>
+        <div class="sensor-bars">
+          <div class="sbar-row"><span>Min</span><div class="sbar"><div class="sbar-fill" id="sb-vib-min" style="width:10%;background:#00d4ff"></div></div><span id="sv-vib-min">0.8</span></div>
+          <div class="sbar-row"><span>Max</span><div class="sbar"><div class="sbar-fill" id="sb-vib-max" style="width:55%;background:#f59e0b"></div></div><span id="sv-vib-max">5.5</span></div>
+        </div>
+        <div class="sensor-tag normal" id="tag-vib">NORMAL</div>
+      </div>
+
+      <!-- Pressure -->
+      <div class="sensor-card" id="sens-pres">
+        <div class="sensor-top">
+          <div class="sensor-name">🔵 Pressure</div>
+          <div class="sensor-unit">bar</div>
+        </div>
+        <div class="gauge-wrap">
+          <canvas id="gauge-pres" width="180" height="110"></canvas>
+          <div class="gauge-val" id="gv-pres">4.8</div>
+        </div>
+        <div class="sensor-bars">
+          <div class="sbar-row"><span>Min</span><div class="sbar"><div class="sbar-fill" id="sb-pres-min" style="width:35%;background:#00d4ff"></div></div><span id="sv-pres-min">3.5</span></div>
+          <div class="sbar-row"><span>Max</span><div class="sbar"><div class="sbar-fill" id="sb-pres-max" style="width:65%;background:#f59e0b"></div></div><span id="sv-pres-max">6.5</span></div>
+        </div>
+        <div class="sensor-tag normal" id="tag-pres">NORMAL</div>
+      </div>
+
+      <!-- Humidity -->
+      <div class="sensor-card" id="sens-hum">
+        <div class="sensor-top">
+          <div class="sensor-name">💧 Humidity</div>
+          <div class="sensor-unit">%RH</div>
+        </div>
+        <div class="gauge-wrap">
+          <canvas id="gauge-hum" width="180" height="110"></canvas>
+          <div class="gauge-val" id="gv-hum">41.2</div>
+        </div>
+        <div class="sensor-bars">
+          <div class="sbar-row"><span>Min</span><div class="sbar"><div class="sbar-fill" id="sb-hum-min" style="width:25%;background:#00d4ff"></div></div><span id="sv-hum-min">30</span></div>
+          <div class="sbar-row"><span>Max</span><div class="sbar"><div class="sbar-fill" id="sb-hum-max" style="width:70%;background:#f59e0b"></div></div><span id="sv-hum-max">68</span></div>
+        </div>
+        <div class="sensor-tag normal" id="tag-hum">NORMAL</div>
+      </div>
+
+      <!-- Energy -->
+      <div class="sensor-card" id="sens-energy">
+        <div class="sensor-top">
+          <div class="sensor-name">⚡ Energy</div>
+          <div class="sensor-unit">kWh</div>
+        </div>
+        <div class="gauge-wrap">
+          <canvas id="gauge-energy" width="180" height="110"></canvas>
+          <div class="gauge-val" id="gv-energy">24.7</div>
+        </div>
+        <div class="sensor-bars">
+          <div class="sbar-row"><span>Min</span><div class="sbar"><div class="sbar-fill" id="sb-energy-min" style="width:18%;background:#00d4ff"></div></div><span id="sv-energy-min">18</span></div>
+          <div class="sbar-row"><span>Max</span><div class="sbar"><div class="sbar-fill" id="sb-energy-max" style="width:72%;background:#f59e0b"></div></div><span id="sv-energy-max">36</span></div>
+        </div>
+        <div class="sensor-tag normal" id="tag-energy">NORMAL</div>
+      </div>
+
+      <!-- Camera -->
+      <div class="sensor-card" id="sens-cam">
+        <div class="sensor-top">
+          <div class="sensor-name">📷 Camera Feed</div>
+          <div class="sensor-unit">fps</div>
+        </div>
+        <div class="cam-preview">
+          <canvas id="cam-canvas" width="180" height="110"></canvas>
+          <div class="cam-overlay">
+            <div class="cam-box" id="cam-box-1"></div>
+            <div class="cam-box" id="cam-box-2"></div>
+          </div>
+        </div>
+        <div class="sensor-bars">
+          <div class="sbar-row"><span>FPS</span><div class="sbar"><div class="sbar-fill" style="width:90%;background:#10b981"></div></div><span>30</span></div>
+          <div class="sbar-row"><span>Objs</span><div class="sbar"><div class="sbar-fill" id="sb-cam-obj" style="width:40%;background:#7c3aed"></div></div><span id="sv-cam-obj">2</span></div>
+        </div>
+        <div class="sensor-tag normal" id="tag-cam">STREAMING</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ SECTION: EDGE AI ═══════ -->
+  <section id="edge-ai" class="section">
+    <div class="section-header-row">
+      <h2 class="sec-title">🧠 Edge AI Module — Anomaly Detection</h2>
+      <span class="sec-sub">TensorFlow Lite · ONNX · On-device inference</span>
+    </div>
+
+    <div class="ai-grid">
+      <!-- Model Performance -->
+      <div class="card ai-perf-card">
+        <div class="card-header"><span class="card-title">Model Performance</span></div>
+        <div class="ai-metrics">
+          <div class="ai-metric-item">
+            <div class="ai-metric-label">Accuracy</div>
+            <div class="ai-metric-ring" data-val="99.1" data-color="#00d4ff">
+              <canvas id="ring-acc" width="100" height="100"></canvas>
+              <div class="ring-label">99.1%</div>
+            </div>
+          </div>
+          <div class="ai-metric-item">
+            <div class="ai-metric-label">Precision</div>
+            <div class="ai-metric-ring" data-val="97.4" data-color="#7c3aed">
+              <canvas id="ring-prec" width="100" height="100"></canvas>
+              <div class="ring-label">97.4%</div>
+            </div>
+          </div>
+          <div class="ai-metric-item">
+            <div class="ai-metric-label">Recall</div>
+            <div class="ai-metric-ring" data-val="96.8" data-color="#10b981">
+              <canvas id="ring-rec" width="100" height="100"></canvas>
+              <div class="ring-label">96.8%</div>
+            </div>
+          </div>
+          <div class="ai-metric-item">
+            <div class="ai-metric-label">F1 Score</div>
+            <div class="ai-metric-ring" data-val="98.1" data-color="#f59e0b">
+              <canvas id="ring-f1" width="100" height="100"></canvas>
+              <div class="ring-label">98.1%</div>
+            </div>
+          </div>
+        </div>
+        <div class="inference-strip">
+          <div class="inf-item"><span class="inf-label">Inference Time</span><span class="inf-val" id="inf-time">11ms</span></div>
+          <div class="inf-item"><span class="inf-label">Model Size</span><span class="inf-val">2.4MB</span></div>
+          <div class="inf-item"><span class="inf-label">Inferences/sec</span><span class="inf-val" id="inf-sec">91</span></div>
+          <div class="inf-item"><span class="inf-label">Framework</span><span class="inf-val">TFLite</span></div>
+        </div>
+      </div>
+
+      <!-- Anomaly Log -->
+      <div class="card anomaly-log-card">
+        <div class="card-header">
+          <span class="card-title">🚨 Anomaly Detection Log</span>
+          <span class="badge-count" id="anomaly-badge">3</span>
+        </div>
+        <div class="anomaly-list" id="anomaly-list"></div>
+      </div>
+    </div>
+
+    <!-- Confidence Timeline -->
+    <div class="card">
+      <div class="card-header"><span class="card-title">📊 AI Confidence Score Timeline</span></div>
+      <canvas id="confChart" height="160"></canvas>
+    </div>
+  </section>
+
+  <!-- ═══════ SECTION: DIGITAL TWIN ═══════ -->
+  <section id="digital-twin" class="section">
+    <div class="section-header-row">
+      <h2 class="sec-title">🔷 Digital Twin — Virtual Replica</h2>
+      <span class="sec-sub">Real-time sync · Simulation · Prediction</span>
+    </div>
+
+    <div class="twin-layout">
+      <!-- 3D Twin Visualization -->
+      <div class="card twin-vis-card">
+        <div class="card-header">
+          <span class="card-title">Factory Floor — Digital Twin</span>
+          <span class="sync-badge" id="sync-badge">🔄 Syncing...</span>
+        </div>
+        <div class="twin-canvas-wrap">
+          <canvas id="twinCanvas" width="700" height="380"></canvas>
+        </div>
+        <div class="twin-legend">
+          <span><span class="dot" style="background:#00d4ff"></span>Normal</span>
+          <span><span class="dot" style="background:#f59e0b"></span>Warning</span>
+          <span><span class="dot" style="background:#ef4444"></span>Critical</span>
+          <span><span class="dot" style="background:#10b981"></span>Optimal</span>
+        </div>
+      </div>
+
+      <!-- Twin Stats -->
+      <div class="twin-stats-col">
+        <div class="card twin-stat-card">
+          <div class="twin-stat-title">Sync Status</div>
+          <div class="twin-sync-list" id="twin-sync-list">
+            <div class="tsync-item"><span>Physical ↔ Digital</span><span class="tsync-val green">✓ 100%</span></div>
+            <div class="tsync-item"><span>Last Sync</span><span class="tsync-val" id="last-sync">0.1s ago</span></div>
+            <div class="tsync-item"><span>Data Points</span><span class="tsync-val">2,847</span></div>
+            <div class="tsync-item"><span>Sync Protocol</span><span class="tsync-val">MQTT</span></div>
+          </div>
+        </div>
+        <div class="card twin-stat-card">
+          <div class="twin-stat-title">Predictive Simulation</div>
+          <div class="pred-list" id="pred-list">
+            <div class="pred-item">
+              <div class="pred-name">Maintenance in</div>
+              <div class="pred-bar-wrap"><div class="pred-bar"><div class="pred-fill" id="maint-fill" style="width:73%;background:#f59e0b"></div></div></div>
+              <div class="pred-val" id="maint-val">73 hrs</div>
+            </div>
+            <div class="pred-item">
+              <div class="pred-name">Failure Risk</div>
+              <div class="pred-bar-wrap"><div class="pred-bar"><div class="pred-fill" id="fail-fill" style="width:12%;background:#ef4444"></div></div></div>
+              <div class="pred-val" id="fail-val">12%</div>
+            </div>
+            <div class="pred-item">
+              <div class="pred-name">Efficiency Score</div>
+              <div class="pred-bar-wrap"><div class="pred-bar"><div class="pred-fill" style="width:91%;background:#10b981"></div></div></div>
+              <div class="pred-val">91%</div>
+            </div>
+            <div class="pred-item">
+              <div class="pred-name">OEE Score</div>
+              <div class="pred-bar-wrap"><div class="pred-bar"><div class="pred-fill" style="width:87%;background:#00d4ff"></div></div></div>
+              <div class="pred-val">87%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ SECTION: DECISIONS ═══════ -->
+  <section id="decisions" class="section">
+    <div class="section-header-row">
+      <h2 class="sec-title">⚡ Decision Engine — Intelligent Actions</h2>
+      <span class="sec-sub">Rule Engine · AI Inference · Decision Logic</span>
+    </div>
+
+    <div class="dec-grid">
+      <!-- Decision Log -->
+      <div class="card dec-log-card">
+        <div class="card-header">
+          <span class="card-title">📋 Decision Log</span>
+          <span class="badge-live">AUTO</span>
+        </div>
+        <div class="dec-list" id="dec-list"></div>
+      </div>
+
+      <!-- Notification Panel -->
+      <div class="card notif-card">
+        <div class="card-header"><span class="card-title">🔔 Stakeholder Notifications</span></div>
+        <div class="notif-list" id="notif-list">
+          <div class="notif-item operator">
+            <div class="notif-role">Industry Operator</div>
+            <div class="notif-msg">All systems nominal. Temperature within safe range.</div>
+            <div class="notif-time">2 min ago</div>
+          </div>
+          <div class="notif-item maintenance">
+            <div class="notif-role">Maintenance Team</div>
+            <div class="notif-msg">Scheduled maintenance recommended for Motor B in 73 hours.</div>
+            <div class="notif-time">5 min ago</div>
+          </div>
+          <div class="notif-item decision">
+            <div class="notif-role">Decision Maker</div>
+            <div class="notif-msg">Efficiency KPIs on target. OEE at 87%. No executive action needed.</div>
+            <div class="notif-time">12 min ago</div>
+          </div>
+          <div class="notif-item it">
+            <div class="notif-role">IT / Support</div>
+            <div class="notif-msg">Edge node EdgeGW-01 memory at 62%. Consider cache flush.</div>
+            <div class="notif-time">18 min ago</div>
+          </div>
+        </div>
+
+        <!-- Manual Override -->
+        <div class="override-panel">
+          <div class="override-title">Manual Override</div>
+          <div class="override-controls">
+            <button class="ovr-btn" onclick="sendOverride('STOP_MOTOR_A')">🛑 Stop Motor A</button>
+            <button class="ovr-btn" onclick="sendOverride('COOL_DOWN')">❄ Cool Down</button>
+            <button class="ovr-btn" onclick="sendOverride('MAINTENANCE_MODE')">🔧 Maintenance Mode</button>
+            <button class="ovr-btn" onclick="sendOverride('RESET_ALL')">🔄 Reset All</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ SECTION: ARCHITECTURE ═══════ -->
+  <section id="architecture" class="section">
+    <div class="section-header-row">
+      <h2 class="sec-title">🗺 System Architecture</h2>
+      <span class="sec-sub">3-Layer Edge AI Framework · Physical → Edge → Cloud</span>
+    </div>
+
+    <div class="arch-wrap">
+      <canvas id="archCanvas" width="900" height="420"></canvas>
+    </div>
+
+    <!-- Application Areas -->
+    <div class="apps-row">
+      <div class="app-card">
+        <div class="app-icon">🏭</div>
+        <div class="app-name">Smart Manufacturing</div>
+        <div class="app-desc">Predictive maintenance & quality control</div>
+      </div>
+      <div class="app-card">
+        <div class="app-icon">🏙</div>
+        <div class="app-name">Smart Cities</div>
+        <div class="app-desc">Traffic, energy, and infrastructure management</div>
+      </div>
+      <div class="app-card">
+        <div class="app-icon">⚕</div>
+        <div class="app-name">Healthcare</div>
+        <div class="app-desc">Remote patient monitoring & diagnostics</div>
+      </div>
+      <div class="app-card">
+        <div class="app-icon">⚡</div>
+        <div class="app-name">Energy Management</div>
+        <div class="app-desc">Grid optimization and demand forecasting</div>
+      </div>
+      <div class="app-card">
+        <div class="app-icon">🚗</div>
+        <div class="app-name">Transportation</div>
+        <div class="app-desc">Fleet tracking and autonomous systems</div>
+      </div>
+      <div class="app-card">
+        <div class="app-icon">🌾</div>
+        <div class="app-name">Agriculture</div>
+        <div class="app-desc">Precision farming and crop monitoring</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
